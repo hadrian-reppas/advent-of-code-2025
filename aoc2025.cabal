@@ -13,6 +13,7 @@ executable aoc2025
     other-modules:
         Day01
         Day02
+        Day03
     build-depends:    split, base ^>=4.17.2.1
     hs-source-dirs:   app
     default-language: GHC2021
