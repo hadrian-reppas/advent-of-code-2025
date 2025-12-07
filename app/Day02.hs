@@ -18,9 +18,10 @@ invalid2' s m
   | m == length s = False
   | otherwise =
       let k = length s `div` m
-          chunks = chunksOf m s
-          invalid = m * k == length s && all (== head chunks) chunks
-       in invalid || invalid2' s (m + 1)
+       in m * k == length s
+            && let chunks = chunksOf m s
+                   invalid = m * k == length s && all (== head chunks) chunks
+                in invalid || invalid2' s (m + 1)
 
 invalid2 :: Int -> Bool
 invalid2 n = invalid2' (show n) 1
