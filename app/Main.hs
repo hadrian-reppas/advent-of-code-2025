@@ -5,6 +5,7 @@ import Day02 qualified
 import Day03 qualified
 import Day04 qualified
 import Day05 qualified
+import Day06 qualified
 
 run :: (Show a, Show b) => Int -> (String -> a) -> (String -> b) -> IO ()
 run day part1 part2 = do
@@ -20,3 +21,4 @@ main = do
   run 3 Day03.part1 Day03.part2
   run 4 Day04.part1 Day04.part2
   run 5 Day05.part1 Day05.part2
+  run 6 Day06.part1 Day06.part2
