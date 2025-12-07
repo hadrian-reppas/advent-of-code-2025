@@ -1,0 +1,17 @@
+cabal-version:      3.0
+name:               aoc2025
+version:            0.1.0.0
+author:             Hadrian
+build-type:         Simple
+
+common warnings
+    ghc-options: -Wall
+
+executable aoc2025
+    import:           warnings
+    main-is:          Main.hs
+    other-modules:
+        Day01
+    build-depends:    base ^>=4.17.2.1
+    hs-source-dirs:   app
+    default-language: GHC2021
