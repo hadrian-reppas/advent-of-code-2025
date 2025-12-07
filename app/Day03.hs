@@ -1,8 +1,4 @@
-module Day03
-  ( part1,
-    part2,
-  )
-where
+module Day03 (part1, part2) where
 
 import Data.Char (digitToInt)
 import Data.Function (on)

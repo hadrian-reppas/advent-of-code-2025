@@ -1,8 +1,4 @@
-module Day01
-  ( part1,
-    part2,
-  )
-where
+module Day01 (part1, part2) where
 
 parseMove :: String -> Int
 parseMove ('R' : n) = read n
