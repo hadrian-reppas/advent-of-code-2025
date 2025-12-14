@@ -18,6 +18,7 @@ executable aoc2025
         Day05
         Day06
         Day07
+        Day08
     build-depends:    containers, array, split, base ^>=4.17.2.1
     hs-source-dirs:   app
     default-language: GHC2021
