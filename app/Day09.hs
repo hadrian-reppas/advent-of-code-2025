@@ -69,19 +69,44 @@ getValidArray valid width height =
         j <- [1 .. height]
     ]
 
-area' ::
-  Array (Int, Int) Bool ->
+sum2d :: Array (Int, Int) Int -> Int -> Int -> Int -> Int -> Int
+sum2d ps i1 i2 j1 j2 =
+  ps ! (i2, j2)
+    - ps ! (i1 - 1, j2)
+    - ps ! (i2, j1 - 1)
+    + ps ! (i1 - 1, j1 - 1)
+
+validArea ::
+  Array (Int, Int) Int ->
   Array (Int, Int) Int ->
   (Int, Int) ->
   (Int, Int) ->
   Int
-area' valid sizes (i1, j1) (i2, j2) =
-  let coords =
-        [ (i, j)
-          | i <- [min i1 i2 .. max i1 i2],
-            j <- [min j1 j2 .. max j1 j2]
-        ]
-   in if all (valid !) coords then sum $ map (sizes !) coords else 0
+validArea valid sizes (i1, j1) (i2, j2) =
+  let (i1', i2') = (min i1 i2, max i1 i2)
+      (j1', j2') = (min j1 j2, max j1 j2)
+   in if sum2d valid i1' i2' j1' j2' == (i2' - i1' + 1) * (j2' - j1' + 1)
+        then sum2d sizes i1' i2' j1' j2'
+        else 0
+
+prefixSum :: Array (Int, Int) a -> (a -> Int) -> Array (Int, Int) Int
+prefixSum a f =
+  let (_, (w, h)) = bounds a
+      ps =
+        array
+          ((0, 0), (w, h))
+          [ ((x, y), val x y)
+            | x <- [0 .. w],
+              y <- [0 .. h]
+          ]
+      val 0 _ = 0
+      val _ 0 = 0
+      val x y =
+        f (a ! (x, y))
+          + ps ! (x - 1, y)
+          + ps ! (x, y - 1)
+          - ps ! (x - 1, y - 1)
+   in ps
 
 part2 :: String -> Int
 part2 input =
@@ -93,4 +118,6 @@ part2 input =
       valid = bfs boundary [(length xs `div` 2, length ys `div` 3)]
       valid' = getValidArray valid (length xs) (length ys)
       sizes = getSizes xs ys
-   in maxArea (area' valid' sizes) points'
+      validPs = prefixSum valid' fromEnum
+      sizesPs = prefixSum sizes id
+   in maxArea (validArea validPs sizesPs) points'
