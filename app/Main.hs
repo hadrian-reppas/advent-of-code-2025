@@ -9,22 +9,30 @@ import Day06 qualified
 import Day07 qualified
 import Day08 qualified
 import Day09 qualified
+import Day10 qualified
 
-run :: (Show a, Show b) => Int -> (String -> a) -> (String -> b) -> IO ()
+run :: Int -> (String -> IO Int) -> (String -> IO Int) -> IO ()
 run day part1 part2 = do
   input <- readFile $ "input/day" ++ show day ++ ".txt"
   putStrLn $ "day " ++ show day ++ ":"
-  putStrLn $ "  part 1: " ++ show (part1 input)
-  putStrLn $ "  part 2: " ++ show (part2 input)
+  result1 <- part1 input
+  putStrLn $ "  part 1: " ++ show result1
+  result2 <- part2 input
+  putStrLn $ "  part 2: " ++ show result2
 
 main :: IO ()
-main = do
-  run 1 Day01.part1 Day01.part2
-  run 2 Day02.part1 Day02.part2
-  run 3 Day03.part1 Day03.part2
-  run 4 Day04.part1 Day04.part2
-  run 5 Day05.part1 Day05.part2
-  run 6 Day06.part1 Day06.part2
-  run 7 Day07.part1 Day07.part2
-  run 8 Day08.part1 Day08.part2
-  run 9 Day09.part1 Day09.part2
+main =
+  mapM_ (\(d, (p1, p2)) -> run d p1 p2) $
+    zip
+      [1 ..]
+      [ (pure . Day01.part1, pure . Day01.part2),
+        (pure . Day02.part1, pure . Day02.part2),
+        (pure . Day03.part1, pure . Day03.part2),
+        (pure . Day04.part1, pure . Day04.part2),
+        (pure . Day05.part1, pure . Day05.part2),
+        (pure . Day06.part1, pure . Day06.part2),
+        (pure . Day07.part1, pure . Day07.part2),
+        (pure . Day08.part1, pure . Day08.part2),
+        (pure . Day09.part1, pure . Day09.part2),
+        (pure . Day10.part1, Day10.part2)
+      ]
