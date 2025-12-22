@@ -10,6 +10,7 @@ import Day07 qualified
 import Day08 qualified
 import Day09 qualified
 import Day10 qualified
+import Day11 qualified
 
 run :: Int -> (String -> IO Int) -> (String -> IO Int) -> IO ()
 run day part1 part2 = do
@@ -34,5 +35,6 @@ main =
         (pure . Day07.part1, pure . Day07.part2),
         (pure . Day08.part1, pure . Day08.part2),
         (pure . Day09.part1, pure . Day09.part2),
-        (pure . Day10.part1, Day10.part2)
+        (pure . Day10.part1, Day10.part2),
+        (pure . Day11.part1, pure . Day11.part2)
       ]
